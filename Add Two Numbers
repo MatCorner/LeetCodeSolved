@@ -1,0 +1,82 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution(object):
+    
+    def output_integer(self,l):
+        """
+        iterate through the linked list and output an integer
+        """
+        temp = 0
+        power = 0
+        while l is not None:
+            temp += l.val*pow(10,power)
+            power += 1
+            l=l.next
+        return temp
+
+    def output_ll(self,res):
+        """
+        convert integer to linked list object recursively
+        """
+        if res == 0:
+            return ListNode(0)
+        head = None
+        current = None
+
+        while res > 0:
+            digit = res % 10
+            res = res//10
+            node=ListNode(digit)
+            if not head:
+                head=node
+                current=head
+            else:
+                current.next=node
+                current=node
+        return head
+
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        val1=self.output_integer(l1)
+        val2=self.output_integer(l2)
+        res=val1+val2
+
+        return self.output_ll(res)
+
+#debug
+"""
+solution = Solution()
+
+# Create the first linked list: 2 -> 4 -> 3
+l1 = ListNode(2)
+l1.next = ListNode(4)
+l1.next.next = ListNode(3)
+
+# Create the second linked list: 5 -> 6 -> 4
+l2 = ListNode(5)
+l2.next = ListNode(6)
+l2.next.next = ListNode(4)
+
+#result = 342+465=807
+
+result = solution.addTwoNumbers(l1,l2)
+
+def print_linked_list(head):
+  current = head
+  while current:
+    print(current.val, end="->")
+    current=current.next
+  print("None")
+
+print("Result Linked List:")
+print_linked_list(result)
+"""
+        
